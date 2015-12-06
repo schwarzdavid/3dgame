@@ -53,6 +53,6 @@
 			window.requestAnimationFrame(function(){
 				renderer.render(scene, camera);
 			});
-		}, 1000/60);
+		}, 100/6);
 	});
 }());

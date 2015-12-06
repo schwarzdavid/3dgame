@@ -2,11 +2,12 @@
 	"use strict";
 	
 	window.Tank = function(data){
-		var body, cannon, tank, settings = {}, actions;
+		var body, cannon, tank, turret, settings = {}, actions;
 		
+		settings.keys = data.keys;
 		settings.color = 0x00FF00;
-		if(data.uid == window.uid){
-			settings.color = 0xFF0000;
+		if(data.color){
+			settings.color = data.color;
 		}
 		
 		actions = {
@@ -42,18 +43,24 @@
 		cannon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.7, 8), new THREE.MeshLambertMaterial({
 			color: 0x00FF00
 		}));
-		cannon.position.y = -0.2;
+		cannon.position.y = -0.1;
 		cannon.position.z = -0.2;
 		cannon.rotation.x = Math.PI / 2;
 		cannon.castShadow = true;
 		cannon.receiveShadow = true;
 		tank.add(cannon);
 		
+		turret = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.4, 6), new THREE.MeshLambertMaterial({
+			color: settings.color
+		}));
+		turret.position.z = 0.4;
+		tank.add(turret);
+		
 		tank.position.set(0, 1, 0);
 		tank.castShadow = true;
 		tank.receiveShadow = true;
 		scene.add(tank);
 		
-		window.events(actions);
+		window.events(actions, settings.keys);
 	};
 }());

@@ -1,13 +1,16 @@
 (function(){
 	"use strict";
 	
-	window.events = function(actions){
+	window.events = function(actions, keys){
 		var rotation, movement, shots;
 		
 		window.addEventListener('keydown', function(e){
-			//console.log(e.keyCode);
+			if(e.keyCode in keys){
+			//	e.preventDefault();
+			}
+			
 			switch(e.keyCode){
-				case 87:
+				case keys.foward:
 					if(!movement){
 						movement = setInterval(function(){
 							actions.move(-0.1);
@@ -15,7 +18,7 @@
 					}
 					break;
 				
-				case 83:
+				case keys.back:
 					if(!movement){
 						movement = setInterval(function(){
 							actions.move(0.05);
@@ -23,7 +26,7 @@
 					}
 					break;
 					
-				case 65:
+				case keys.left:
 					if(!rotation){
 						rotation = setInterval(function(){
 							actions.rotate(Math.PI / 60)
@@ -31,7 +34,7 @@
 					}
 					break;
 					
-				case 68:
+				case keys.right:
 					if(!rotation){
 						rotation = setInterval(function(){
 							actions.rotate(-Math.PI / 60);
@@ -39,7 +42,7 @@
 					}
 					break;
 					
-				case 32:
+				case keys.bum:
 					if(!shots){
 						actions.bum();
 						shots = setInterval(function(){
@@ -51,20 +54,22 @@
 		});
 		
 		window.addEventListener('keyup', function(e){
+			//e.preventDefault();
+			
 			switch(e.keyCode){
-				case 87:
-				case 83:
+				case keys.foward:
+				case keys.back:
 					clearInterval(movement);
 					movement = null;
 					break;
 					
-				case 65:
-				case 68:
+				case keys.left:
+				case keys.right:
 					clearInterval(rotation);
 					rotation = null;
 					break;
 				
-				case 32:
+				case keys.bum:
 					clearInterval(shots);
 					shots = null;
 					break;

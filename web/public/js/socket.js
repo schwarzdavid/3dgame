@@ -14,6 +14,26 @@
 			tanks[data.uid] = new Tank(data);
 		});
 		
-		tanks["test"] = new Tank({});
+		tanks['p1'] = new Tank({
+			color: 0xFFFF00,
+			keys: {
+				foward: 87,
+				back: 83,
+				left: 65,
+				right: 68,
+				bum: 32
+			}
+		});
+		
+		tanks['p2'] = new Tank({
+			color: 0x0000FF,
+			keys: {
+				foward: 38,
+				back: 40,
+				left: 37,
+				right: 39,
+				bum: 17
+			}
+		});
 	};
 }());
