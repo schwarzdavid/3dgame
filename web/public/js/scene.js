@@ -7,8 +7,8 @@
 		 */
 		
 		var renderer = new THREE.WebGLRenderer({ antialias:true }),
-			camera = new THREE.PerspectiveCamera(35, window.innerWidth/window.innerHeight, 1, 500),
-			ambientLight = new THREE.AmbientLight(0xEAEAEA),
+			camera = new THREE.PerspectiveCamera(35, 800/600, 1, 500),
+			ambientLight = new THREE.AmbientLight(0x888888),
 			spotLight = new THREE.SpotLight(0xFFFFFF),
 			plane;
 		
@@ -20,7 +20,7 @@
 		 */
 		
 		//Camera
-		camera.position.set(0, 28, 0);
+		camera.position.set(20, 18, 10);
 		camera.lookAt(scene.position);
 		scene.add(camera);
 		
@@ -28,13 +28,15 @@
 		scene.add(ambientLight);
 		
 		//Spotlight
-		spotLight.position.set(5, 7, -5);
+		spotLight.position.set(-20, 18, -10);
 		scene.add(spotLight);
 		
 		//Untergrund
-		plane = new THREE.Mesh(new THREE.BoxGeometry(17, 0.1, 20), new THREE.MeshLambertMaterial({
+		plane = new THREE.Mesh(new THREE.CubeGeometry(15, 0.1, 15), new THREE.MeshLambertMaterial({
 			color: 0x555555
 		}));
+		plane.castShadow = true;
+		plane.receiveShadow = true;
 		scene.add(plane);
 		
 		//Sockets einbinden
@@ -47,9 +49,10 @@
 		renderer.setClearColor(0x202020);
 		document.body.appendChild(renderer.domElement);
 		
-		(function render(){
-			renderer.render(scene, camera);
-			window.requestAnimationFrame(render);
-		}());
+		setInterval(function(){
+			window.requestAnimationFrame(function(){
+				renderer.render(scene, camera);
+			});
+		}, 1000/60);
 	});
 }());

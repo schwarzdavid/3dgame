@@ -1,6 +1,7 @@
 var express = require('express'),
+	CPlayer = require('./app/player.js'),
 	app = express(),
-	http, io, tanks;
+	http, io, player;
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -16,9 +17,14 @@ http = app.listen(process.argv[2] || 80, function(){
 	console.log('Webserver running ...');
 });
 
-tanks = {};
+player = {};
 
 io = require('socket.io')(http);
 io.on('connection', function(socket){
+	player[socket.uid] = new CPlayer(socket);
 	
+	socket.on('disconnect', function(){
+		player[socket.uid] = null;
+		delete player[socket.uid];
+	});
 });
