@@ -5,8 +5,6 @@
 		var rotation, movement, shots;
 		
 		window.addEventListener('keydown', function(e){
-			console.log(e.keyCode);
-			
 			e.preventDefault();
 			
 			switch(e.keyCode){

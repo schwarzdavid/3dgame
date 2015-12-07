@@ -143,7 +143,7 @@
 		this.makeKrachbum = function(){
 			hp--;
 			if(hp === 0){
-				alert(settings.name + ' hat verloren! Muahahahaha >:D');
+				alert(settings.name + ' hat verloren.');
 				window.location.reload();
 			}
 		};

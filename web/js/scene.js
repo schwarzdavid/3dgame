@@ -41,6 +41,8 @@
 		scene.add(plane);
 		
 		//Spieler hinzufügen
+		window.tanks = {};
+		
 		tanks['p1'] = new Tank({
 			color: 0x1f2d77,
 			keys: {
