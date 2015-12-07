@@ -37,6 +37,7 @@
 		}));
 		plane.castShadow = true;
 		plane.receiveShadow = true;
+		plane.name = 'unterplatte';
 		scene.add(plane);
 		
 		//Sockets einbinden
@@ -47,6 +48,7 @@
 		 */
 		renderer.setSize(800, 600);
 		renderer.setClearColor(0x202020);
+		renderer.shadowMap.enabled = true;
 		document.body.appendChild(renderer.domElement);
 		
 		setInterval(function(){

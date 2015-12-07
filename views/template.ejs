@@ -5,12 +5,25 @@
 		
 		<title>Tankwars</title>
 		
-		<link type="text/css" rel="stylesheet" href="/css/main.min.css">
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background: #202020;
+			}
+			
+			canvas {
+				margin:0 auto;
+				display:block;
+			}
+		</style>
 	</head>
-	<body style="margin:0;">
+	<body>
 		<script src="/socket.io/socket.io.js"></script>
-		<script src="/three.js/three.js"></script>
-		<script src="/js/ColladaLoader.js"></script>
+		<script src="/js/vendor/three.js"></script>
+		<script src="/js/vendor/TextGeometry.js"></script>
+		<script src="/js/vendor/FontUtils.js"></script>
+		<script src="/js/vendor/helvetiker_regular.typeface.js"></script>
 		<script src="/js/socket.js"></script>
 		<script src="/js/event.js"></script>
 		<script src="/js/bum.js"></script>

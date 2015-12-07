@@ -22,7 +22,13 @@
 				left: 65,
 				right: 68,
 				bum: 32
-			}
+			},
+			name: 'Spieler 1',
+			coords: {
+				x: -5,
+				z: -5
+			},
+			rotation: Math.PI
 		});
 		
 		tanks['p2'] = new Tank({
@@ -33,7 +39,13 @@
 				left: 37,
 				right: 39,
 				bum: 17
-			}
+			},
+			name: 'Spieler 2',
+			coords: {
+				x: 5,
+				z: 5
+			},
+			rotation: 0
 		});
 	};
 }());

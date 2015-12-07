@@ -5,9 +5,7 @@
 		var rotation, movement, shots;
 		
 		window.addEventListener('keydown', function(e){
-			if(e.keyCode in keys){
-			//	e.preventDefault();
-			}
+			e.preventDefault();
 			
 			switch(e.keyCode){
 				case keys.foward:
@@ -47,14 +45,14 @@
 						actions.bum();
 						shots = setInterval(function(){
 							actions.bum();
-						}, 150);
+						}, 200);
 					}
 					break;
 			}
 		});
 		
 		window.addEventListener('keyup', function(e){
-			//e.preventDefault();
+			e.preventDefault();
 			
 			switch(e.keyCode){
 				case keys.foward:

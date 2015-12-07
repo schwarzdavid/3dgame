@@ -1,23 +1,81 @@
 (function(){
 	"use strict";
 	
-	window.Tank = function(data){
-		var body, cannon, tank, turret, settings = {}, actions;
+	window.Tank = function(settings){
+		var body, cannon, tank, turret, actions, hp = 10, label;
 		
-		settings.keys = data.keys;
-		settings.color = 0x00FF00;
-		if(data.color){
-			settings.color = data.color;
-		}
+		//MOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE NOPE
+		/*function collisionDetection(){
+			var originPos = tank.position.clone();
+			
+			//console.log(tank.children[0].geometry.vertices[0].clone());
+			
+			for(var vertexIndex = 0; vertexIndex < tank.children[0].geometry.vertices.length; vertexIndex++){
+				
+				var localVertex = tank.children[0].geometry.vertices[vertexIndex].clone(),
+					globalVertex = localVertex.applyMatrix4(scene.matrix),
+					directionVector = globalVertex.sub(tank.position);
+				
+				//console.log(globalVertex);
+				
+				var ray = new THREE.Raycaster(originPos, directionVector.clone().normalize()),
+					tankArray = (function(){
+						var output = [];
+						Object.keys(tanks).map(function(key){
+							var s = tanks[key].getTank();
+							if(s !== this){
+								output.push(s.children[0]);
+							}
+						});
+						return output;
+					}()),
+					collisionResults = ray.intersectObjects(tankArray, true);
+				
+				if(collisionResults.length > 0 && collisionResults[0].distance < 0.49){
+					return false;
+				}
+			}
+			return true;
+		}*/
 		
 		actions = {
 			move: function(dist){
 				tank.position.z += dist * Math.cos(tank.rotation.y);
 				tank.position.x += dist * Math.sin(tank.rotation.y);
+				
+				/*if(!collisionDetection()){
+					tank.position.z -= dist * Math.cos(tank.rotation.y);
+					tank.position.x -= dist * Math.sin(tank.rotation.y);
+				}*/
+				
+				var check = true, unterplatte = scene.getObjectByName('unterplatte');
+				for(var i in unterplatte.geometry.vertices){
+					if(unterplatte.geometry.vertices[i].x > 0 && unterplatte.geometry.vertices[i].x < tank.position.x){
+						check = false;
+					}
+					if(unterplatte.geometry.vertices[i].z > 0 && unterplatte.geometry.vertices[i].z < tank.position.z){
+						check = false;
+					}
+					if(unterplatte.geometry.vertices[i].x < 0 && unterplatte.geometry.vertices[i].x > tank.position.x){
+						check = false;
+					}
+					if(unterplatte.geometry.vertices[i].z < 0 && unterplatte.geometry.vertices[i].z > tank.position.z){
+						check = false;
+					}
+				}
+				if(!check){
+					tank.position.z -= dist * Math.cos(tank.rotation.y);
+					tank.position.x -= dist * Math.sin(tank.rotation.y);
+				}
 			},
 			
 			rotate: function(deg){
 				tank.rotation.y += deg;
+				label.rotation.y -= deg;
+				
+				/*if(!collisionDetection()){
+					tank.rotation.y -= deg;
+				}*/
 			},
 			
 			bum: function(){
@@ -56,11 +114,38 @@
 		turret.position.z = 0.4;
 		tank.add(turret);
 		
-		tank.position.set(0, 1, 0);
+		label = new THREE.TextGeometry(settings.name, {
+			size: 0.25,
+			height: 0.01
+		});
+		label.translate(-0.5, 0, 0);
+		
+		label = new THREE.Mesh(label, new THREE.MeshBasicMaterial({
+			color: 0xFFFFFF,
+			side: THREE.DoubleSide
+		}));
+		label.position.set(0, 0.7, 0);
+		label.rotation.y = Math.PI / 2 + settings.rotation;
+		tank.add(label);
+		
+		tank.position.set(settings.coords.x, 1, settings.coords.z);
+		tank.rotation.y = settings.rotation;
 		tank.castShadow = true;
 		tank.receiveShadow = true;
 		scene.add(tank);
 		
 		window.events(actions, settings.keys);
+		
+		this.getTank = function(){
+			return tank;
+		};
+		
+		this.makeKrachbum = function(){
+			hp--;
+			if(hp === 0){
+				alert(settings.name + ' hat verloren! Muahahahaha >:D');
+				window.location.reload();
+			}
+		};
 	};
 }());
