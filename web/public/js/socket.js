@@ -15,13 +15,13 @@
 		});
 		
 		tanks['p1'] = new Tank({
-			color: 0xFFFF00,
+			color: 0x1f2d77,
 			keys: {
 				foward: 87,
 				back: 83,
 				left: 65,
 				right: 68,
-				bum: 32
+				bum: 70
 			},
 			name: 'Spieler 1',
 			coords: {
@@ -32,13 +32,13 @@
 		});
 		
 		tanks['p2'] = new Tank({
-			color: 0x0000FF,
+			color: 0x38771f,
 			keys: {
 				foward: 38,
 				back: 40,
 				left: 37,
 				right: 39,
-				bum: 17
+				bum: 191
 			},
 			name: 'Spieler 2',
 			coords: {

@@ -99,7 +99,7 @@
 		tank.add(body);
 		
 		cannon = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 1.7, 8), new THREE.MeshLambertMaterial({
-			color: 0x00FF00
+			color: 0x333333
 		}));
 		cannon.position.y = -0.1;
 		cannon.position.z = -0.2;
