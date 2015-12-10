@@ -2,10 +2,11 @@
 	"use strict";
 	
 	window.bum = function(data){
-		var sphere, move;
+		var sphere, move, steps = 0;
 		
 		function bam(mesh){
 			clearInterval(move);
+			move = null;
 			scene.remove(sphere);
 			
 			for(var i in tanks){
@@ -22,6 +23,8 @@
 		sphere.position.set(data.x - 1.5 * Math.sin(data.angle), 0.8, data.z - 1.5 * Math.cos(data.angle));
 		
 		move = setInterval(function(){
+			steps++;
+			
 			sphere.position.z -= 0.3 * Math.cos(data.angle);
 			sphere.position.x -= 0.3 * Math.sin(data.angle);
 			
@@ -50,6 +53,12 @@
 				if(collisionResults.length > 0 && collisionResults[0].distance < 0.5){
 					bam(collisionResults[0]);
 					break;
+				}
+				
+				if(steps > 45){
+					clearInterval(move);
+					move = null;
+					scene.remove(sphere);
 				}
 			}
 		}, 100/6);
